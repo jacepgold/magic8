@@ -4,35 +4,20 @@
 # Done
 # - Function to print all the answers
 # Arrays for original bank of answers (@default_answers) -
+# Function when the user types QUIT or EXIT to say goodbye and exit 0
+# Function to reset answers back to default bank
+# if get_input = 'answers', add answers to @answers array
+# Function to print all answers from @answers do.each loop
 
 # To Do
-
-# Function to get answers from User (get_input(type = 'question'))
-# if get_input, single line if statement thingy
-# if get_input = 'answers', add answers to @answers array
 # get_input = 'answers' will also check for duplicates, and alert
 # the user to that the answer already exists
-
-# Function to return a random answer
-
-# Function when the user types QUIT or EXIT to say goodbye and exit 0
-
-# Function to reset answers back to default bank (use arr.clone)
-
-# Function to print all answers from @answers do.each loop
+# Add color to the output text
 
 require 'pry'
 require 'rainbow'
 require_relative 'default_responses'
 
-# # Default answers source: https://en.wikipedia.org/wiki/Magic_8-Ball
-# # default_answers array is a restore point.
-# @default_answers = [
-#   'It is certain', 'It is decidedly so', 'Without a doubt', 'Yes definitely', 'You may rely on it',
-#   'As I see it, yes', 'Most likely', 'Outlook good', 'Yes', 'Signs point to yes', 'Reply hazy try again',
-#   'Ask again later', 'Better not tell you now', 'Cannot predict now', 'Concentrate and ask again',
-#   'Don\t count on it', 'My reply is no', 'My sources say no', 'Outlook not so good', 'Very doubtful'
-# ]
 # Clone the default answers. Use this array to add more answers from the user
 @answers = @default_answers.clone
 
@@ -64,7 +49,7 @@ end
 def quit_program(input)
   to_quit = input
   if to_quit == 'quit' || to_quit == 'exit'
-    puts 'Magic 8 Ball shall be awaiting your return.'
+    puts "\tMagic 8 Ball shall be awaiting your return."
     exit 0
   else
     return # Return straight to continue the script
@@ -88,6 +73,7 @@ def add_to_answers(*args)
        add_to_answers
      else
        @answers.push(new_answer.split(',').last)
+       puts "\n\tAnswer has been added.\n"
        easter_egg_menu
      end
      easter_egg_menu
@@ -95,8 +81,8 @@ def add_to_answers(*args)
 end
 
 def reset_answers
-  @answers = @default_answers
-  puts @answers
+  @answers = @default_answers.clone
+  puts "\n\tAnswers Have Been Reset\n"
 end
 
 # Get user input
@@ -133,7 +119,8 @@ def easter_egg_menu
      reset_answers
      easter_egg_menu
    when '5'
-     exit 0
+     choice = 'quit'
+     quit_program(choice)
    else
      puts 'I didn\'t understand you. Please try again.'
      easter_egg_menu
