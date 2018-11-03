@@ -24,7 +24,7 @@ require_relative 'default_responses'
 
 # Show all answers from @answers array of answers
 def show_answers
-  puts "\n\t----- All The Answers -----\n"
+  puts Rainbow("\n\t----- All The Answers -----\n").blue
   @answers.each do |answer|
     puts answer
   end
@@ -32,7 +32,8 @@ end
 
 # The actual game
 def magic_eight
-  puts "\n\t------ MAGIC 8 BALL ------\n"
+  puts Rainbow("\n\t------ MAGIC 8 BALL ------\n").blue
+
   puts "Type a question to get an answer, or type QUIT to end the program."
   print '> '
   question = $stdin.gets.strip
@@ -41,7 +42,7 @@ def magic_eight
   if question.include?('easter')
     easter_egg_menu
   end
-  puts 'The Magic 8 Ball says...'
+  puts Rainbow('The Magic 8 Ball says...').red
   puts @answers.sample
   magic_eight
 end
@@ -69,7 +70,7 @@ def add_to_answers(*args)
    else
      new_answer = get_input
      if @answers.include?(new_answer.split(',').last)
-       puts "Answer already exists. Please try again."
+       puts Rainbow("Answer already exists. Please try again.").red
        add_to_answers
      else
        @answers.push(new_answer.split(',').last)
@@ -97,12 +98,12 @@ end
 
 # Main easter_egg_menu
 def easter_egg_menu
-   puts "\n\t----- Easter Egg Menu! Much more options to explore -----\n"
-   puts '1.) Magic 8'
-   puts '2.) Add Answers'
-   puts '3.) Show Answers'
-   puts '4.) Reset answers'
-   puts '5.) Quit'
+   puts Rainbow("\n\t----- Easter Egg Menu! Much more options to explore -----\n").blue
+   puts Rainbow('1.) Magic 8').green
+   puts Rainbow('2.) Add Answers').green
+   puts Rainbow('3.) Show Answers').green
+   puts Rainbow('4.) Reset answers').yellow
+   puts Rainbow('5.) Quit').red
    print '> '
    choice = $stdin.gets.strip.downcase
    case choice
@@ -122,7 +123,7 @@ def easter_egg_menu
      choice = 'quit'
      quit_program(choice)
    else
-     puts 'I didn\'t understand you. Please try again.'
+     puts Rainbow('I didn\'t understand you. Please try again.').red
      easter_egg_menu
    end
 end
